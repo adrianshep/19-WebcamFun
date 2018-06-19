@@ -21,6 +21,27 @@ function paintToCanvas() {
   const height = video.videoHeight;
   canvas.width = width;
   canvas.height = height;
+
+  return setInterval(() => {
+    ctx.drawImage(video, 0, 0, width, height)
+  }, 16);
+
+}
+
+function takePhoto() {
+  // played the sound
+  snap.currentTime = 0;
+  snap.play();
+
+  // take the data out of the paintToCanvas
+  const data = canvas.toDataURL('image/jpeg');
+  const link = document.createeElement('a');
+  link.href = data;
+  link.setAttribute('download', 'handsome');
+  link.textContext = 'Download Image';
+  strip.insertBefore(link, strip.firstChild);
 }
 
 getVideo();
+
+video.addEventListener('canplay', paintToCanvas);
